@@ -1,10 +1,5 @@
 # Laravel User Affiliate
 
-[![Build Status](https://packagist.org/packages/mediusware/affiliate.svg?branch=v1.0.21)](https://packagist.org/packages/mediusware/affiliate) 
-[![Code Climate](https://codeclimate.com/github/hootlex/laravel-friendships/badges/gpa.svg)](https://codeclimate.com/github/hootlex/laravel-friendships) 
-[![Test Coverage](https://codeclimate.com/github/hootlex/laravel-friendships/badges/coverage.svg)](https://codeclimate.com/github/hootlex/laravel-friendships/coverage) 
-[![Total Downloads](https://img.shields.io/packagist/dt/hootlex/laravel-friendships.svg?style=flat)](https://packagist.org/packages/hootlex/laravel-friendships) [![Version](https://img.shields.io/packagist/v/hootlex/laravel-friendships.svg?style=flat)](https://packagist.org/packages/hootlex/laravel-friendships) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
-
 ## This is not ready project
 
 This package provides user wise affiliate program.
