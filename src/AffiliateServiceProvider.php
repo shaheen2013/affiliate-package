@@ -24,6 +24,8 @@ class AffiliateServiceProvider extends ServiceProvider
         // Publish a config file
         $this->publishes([
             __DIR__.'/config/affiliate.php' => config_path('affiliate.php'),
+            __DIR__.'/views' => base_path('resources/views/affiliate'),
+            __DIR__.'/Http/Controllers' => base_path('app/Http/Controllers/Affiliate'),
         ]);
 
         // Publish your migrations
