@@ -21,9 +21,15 @@ class AffiliateServiceProvider extends ServiceProvider
             __DIR__.'/config/affiliate.php', 'affiliate'
         );
 
+        // Publish a config file
         $this->publishes([
             __DIR__.'/config/affiliate.php' => config_path('affiliate.php'),
         ]);
+
+        // Publish your migrations
+        $this->publishes([
+            __DIR__.'/database/migrations/' => database_path('/migrations')
+        ], 'migrations');
     }
 
     /**
