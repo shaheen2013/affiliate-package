@@ -9,7 +9,7 @@
 <body>
     <form action="{{route('test')}}" method="POST">
         @csrf
-        <input type="text" name="name" value="Alfu Mia">
+        <input type="text" name="name" value="Alfu-Mia">
         <button type="submit">Submit</button>
     </form>
 </body>
