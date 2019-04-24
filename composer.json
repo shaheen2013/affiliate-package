@@ -1,0 +1,26 @@
+{
+    "name": "mediusware/affiliate",
+    "description": "This is a user affiliate package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sudip",
+            "email": "sudip.mediusware@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mediusware\\Affiliate\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mediusware\\Affiliate\\AffiliateServiceProvider"
+            ]
+        }
+    }
+}
