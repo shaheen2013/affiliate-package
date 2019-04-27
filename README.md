@@ -35,6 +35,8 @@ Finally, migrate the database
 php artisan migrate
 ```
 
+## Setup Affiliate
+
 Add this in your website for user affiliate registration link
 ```
 {{ url('affiliate') }}
