@@ -37,14 +37,14 @@ php artisan migrate
 
 ## Setup Affiliate
 
-Add this in your website for user affiliate registration link
+User affiliate registration link (Add this in your website where you want to show link)
 ```
 {{ url('affiliate') }}
 or
 <li><a class="nav-link" href="{{ url('affiliate') }}">Affiliate</a></li>
 ```
 
-Add this to your user panel where you want to show Affiliate link
+Add this in your user panel where you want to show user Affiliate link
 ```
 <a class="dropdown-item" href="/my-affiliate">Affiliate</a>
 ```
