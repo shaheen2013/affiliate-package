@@ -15,9 +15,19 @@ class CreateAffiliatesTable extends Migration
     {
         Schema::create('affiliates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
+            $table->integer('user_id')->unsigned()->unique();
+            $table->text('promotion_message');
+            $table->string('website_url');
+            $table->enum('commission_type', ['Percentage','Amount'])->default('Percentage');
+            $table->tinyInteger('commission')->unsigned()->nullable();
+            $table->string('affiliate_code')->nullable();
+            $table->integer('use_limit')->nullable();
+            $table->string('user_code')->nullable();
+            $table->integer('banner_id')->unsigned()->nullable();
+            $table->enum('status', ['Pending','Approved','Rejected'])->default('Pending');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -34,3 +34,31 @@ Finally, migrate the database
 ```
 php artisan migrate
 ```
+
+Add this in your website for user affiliate registration link
+```
+{{ url('affiliate') }}
+or
+<li><a class="nav-link" href="{{ url('affiliate') }}">Affiliate</a></li>
+```
+
+Add this to your user panel where you want to show Affiliate link
+```
+<a class="dropdown-item" href="/my-affiliate">Affiliate</a>
+```
+
+Add this in your admin master template navigation section
+```
+<li class="treeview {{_active(['affiliate','affiliate-dashboard','affiliate-banner'])}}">
+    <a href="#"><i class="fa-desktop"></i> <span>Affiliate</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{_active(['affiliate-dashboard'])}}"><a href="{!! url('admin/affiliate-dashboard') !!}"><i class="fa fa-circle-o"></i> </i>Dashboard</a></li>
+        <li class="{{_active(['affiliate'])}}"><a href="{!! url('admin/affiliate') !!}"><i class="fa fa-circle-o"></i> </i>Request</a></li>
+        <li class="{{_active(['affiliate-banner'])}}"><a href="{!! url('admin/affiliate-banner') !!}"><i class="fa fa-circle-o"></i> </i>Banner</a></li>
+    </ul>
+</li>
+```

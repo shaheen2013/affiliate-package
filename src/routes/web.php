@@ -1,7 +1,25 @@
 <?php
 
-Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=>'affiliate'], function () {
+Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=>'affiliate', 'middleware' => 'web'], function () {
+    Route::get( '/', 'AffiliateController@index' )->name('affiliate.form');
+    Route::post( '/store', 'AffiliateController@store' )->name('affiliate.store');;
+});
 
-    Route::get( 'test', 'AffiliateController@index' )->name('test');
-    Route::post( 'test', 'AffiliateController@store' );
+// ,'middleware' => ['admin']
+
+Route::group(['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix' => 'admin', 'middleware' => ['web','admin','role:super-admin,admin']], function () {
+    Route::get( '/affiliate', 'AdminController@index' );
+    Route::get( '/affiliate/all', 'AdminController@index' );
+    Route::get( '/affiliate/pending', 'AdminController@pendingAffiliate' );
+    Route::get( '/affiliate/approved', 'AdminController@approvedAffiliate' );
+    Route::get( '/affiliate/rejected', 'AdminController@rejectedAffiliate' );
+    Route::post( '/affiliate/{id}/delete', 'AdminController@deleteAffiliate' );
+    Route::post( '/affiliate/{id}/{status}', 'AdminController@statusAffiliate' );
+
+    Route::get( '/affiliate-dashboard', 'AdminController@dashboard' );
+
+    Route::get( '/affiliate-banner', 'AdminController@banner' );
+    Route::get( '/affiliate-banner/{id}/edit', 'AdminController@banner' );
+    Route::post( '/affiliate-banner/store', 'AdminController@bannerPost' );
+    Route::post( '/affiliate-banner/{id}/delete', 'AdminController@bannerDestroy' );
 });
