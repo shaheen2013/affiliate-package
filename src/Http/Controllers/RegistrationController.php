@@ -170,6 +170,8 @@ class RegistrationController extends Controller
                 'affiliate_commission' => $affiliate->commission,
             ]);
 
+            Cookie::forget('affiliate');
+
             Mail::send('affiliate::emails.registration-notify-admin', ['user' => $user], function ($message) {
                 $message->subject('New User Register');
                 $message->from(config('affiliate.admin_mail_from'), config('affiliate.admin_mail_name'));
