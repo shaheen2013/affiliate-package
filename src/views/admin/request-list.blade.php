@@ -13,10 +13,10 @@
     <div class="col-lg-12 mt-5">
         <h3 class="col-sm-12 text-center">{{ Session::get('success') ?:'' }}</h3>
         <ul class="nav nav-tabs">
-                <li class="nav-item  {!!_active(['pending'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate/pending')}}">Pending</a></li>
-                <li class="nav-item {!!_active(['approved'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate/approved')}}">Approved</a></li>
-                <li class="nav-item {!!_active(['rejected'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate/rejected')}}">Rejected</a></li>
-                <li class="nav-item  {!!_active(['all'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate/all')}}">All</a></li>
+                <li class="nav-item  {!!_active(['pending'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate-request/pending')}}">Pending</a></li>
+                <li class="nav-item {!!_active(['approved'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate-request/approved')}}">Approved</a></li>
+                <li class="nav-item {!!_active(['rejected'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate-request/rejected')}}">Rejected</a></li>
+                <li class="nav-item  {!!_active(['all'],3)!!}"><a class="nav-link" href="{{url('admin/affiliate-request/all')}}">All</a></li>
         </ul>
         <div class="box">
             <div class="box-body">
@@ -55,16 +55,16 @@
                             </td>
                             <td class="text-right">
                                 @if($val->status=='Pending')
-                                <a href="#" onclick="affiliateApprove('{{ url('admin/affiliate', $val->id) }}/approved')">Approve</a> |
-                                <a href="#" onclick="affiliateReject('{{ url('admin/affiliate', $val->id) }}/rejected')">Reject</a>
+                                <a href="#" onclick="affiliateApprove('{{ url('admin/affiliate-request', $val->id) }}/approved')">Approve</a> |
+                                <a href="#" onclick="affiliateReject('{{ url('admin/affiliate-request', $val->id) }}/rejected')">Reject</a>
 
                                 @elseif($val->status=='Approved')
-                                <a href="#" onclick="affiliateReject('{{ url('admin/affiliate', $val->id) }}/rejected')">Reject</a> |
-                                <a href="#" onclick="affiliateDelete('{{ url('admin/affiliate', $val->id) }}/delete')">Delete</a>
+                                <a href="#" onclick="affiliateReject('{{ url('admin/affiliate-request', $val->id) }}/rejected')">Reject</a> |
+                                <a href="#" onclick="affiliateDelete('{{ url('admin/affiliate-request', $val->id) }}/delete')">Delete</a>
 
                                 @elseif($val->status=='Rejected')
-                                <a href="#" onclick="affiliateApprove('{{ url('admin/affiliate', $val->id) }}/approved')">Approve</a> |
-                                <a href="#" onclick="affiliateDelete('{{ url('admin/affiliate', $val->id) }}/delete')">Delete</a>
+                                <a href="#" onclick="affiliateApprove('{{ url('admin/affiliate-request', $val->id) }}/approved')">Approve</a> |
+                                <a href="#" onclick="affiliateDelete('{{ url('admin/affiliate-request', $val->id) }}/delete')">Delete</a>
                                 @endif
                             </td>
                         </tr>

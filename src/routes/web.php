@@ -15,12 +15,12 @@ Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=
 Route::group(['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix' => 'admin', 'middleware' => ['web','admin','role:super-admin,admin']], function () {
     Route::get( '/affiliate', 'AdminController@index' );
     Route::get( '/affiliate/{id}', 'AdminController@show' );
-    Route::get( '/affiliate/all', 'AdminController@allAffiliate' );
-    Route::get( '/affiliate/pending', 'AdminController@pendingAffiliate' );
-    Route::get( '/affiliate/approved', 'AdminController@approvedAffiliate' );
-    Route::get( '/affiliate/rejected', 'AdminController@rejectedAffiliate' );
-    Route::post( '/affiliate/{id}/delete', 'AdminController@deleteAffiliate' );
-    Route::post( '/affiliate/{id}/{status}', 'AdminController@statusAffiliate' );
+    Route::get( '/affiliate-request/all', 'AdminController@allAffiliate' );
+    Route::get( '/affiliate-request/pending', 'AdminController@pendingAffiliate' );
+    Route::get( '/affiliate-request/approved', 'AdminController@approvedAffiliate' );
+    Route::get( '/affiliate-request/rejected', 'AdminController@rejectedAffiliate' );
+    Route::post( '/affiliate-request/{id}/delete', 'AdminController@deleteAffiliate' );
+    Route::post( '/affiliate-request/{id}/{status}', 'AdminController@statusAffiliate' );
 
     Route::get( '/affiliate-dashboard', 'AdminController@dashboard' );
 
