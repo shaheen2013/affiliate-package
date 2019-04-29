@@ -59,7 +59,8 @@ Add this in your admin master template navigation section
     </a>
     <ul class="treeview-menu">
         <li class="{{_active(['affiliate-dashboard'])}}"><a href="{!! url('admin/affiliate-dashboard') !!}"><i class="fa fa-circle-o"></i> </i>Dashboard</a></li>
-        <li class="{{_active(['affiliate'])}}"><a href="{!! url('admin/affiliate') !!}"><i class="fa fa-circle-o"></i> </i>Request</a></li>
+        <li class="{{_active(['affiliate'])}}"><a href="{!! url('admin/affiliate') !!}"><i class="fa fa-circle-o"></i> </i>Affiliate Users</a></li>
+        <li class="{{_active(['affiliate-request'])}}"><a href="{!! url('admin/affiliate-request/pending') !!}"><i class="fa fa-circle-o"></i> </i>Affiliate Request</a></li>
         <li class="{{_active(['affiliate-banner'])}}"><a href="{!! url('admin/affiliate-banner') !!}"><i class="fa fa-circle-o"></i> </i>Banner</a></li>
     </ul>
 </li>
