@@ -51,7 +51,7 @@ Add this in your user panel where you want to show user Affiliate link
 
 Add this in your admin master template navigation section
 ```
-<li class="treeview {{_active(['affiliate','affiliate-dashboard','affiliate-banner'])}}">
+<li class="treeview {{_active(['affiliate','affiliate-request','affiliate-dashboard','affiliate-banner'])}}">
     <a href="#"><i class="fa-desktop"></i> <span>Affiliate</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
