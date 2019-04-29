@@ -4,7 +4,7 @@
     <title>Welcome Email</title>
 </head>
 <body>
-    <h4>New user register on your site {{ env('APP_NAME') }}</h4>
+    <h4>New user send a affiliate request on your site {{ env('APP_NAME') }}</h4>
     <p>User Details showing below:</p><br>
     <table border="1" cellpadding="5" cellspacing="0" style="width:100%">
         <tr>
@@ -18,10 +18,16 @@
             <td>{{ $user->email }}</td>
         </tr>
         <tr>
-            <th>Phone</th>
+            <th>Promotion Message</th>
             <th>:</th>
-            <td>{{ $user->phone }}</td>
+            <td>{{ $aff->promotion_message }}</td>
+        </tr>
+        <tr>
+            <th>Website URL</th>
+            <th>:</th>
+            <td>{{ $aff->website_url }}</td>
         </tr>
     </table>
 </body>
 </html>
+

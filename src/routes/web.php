@@ -1,14 +1,24 @@
 <?php
 
+//Affiliate invitation registration link...
+Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'middleware' => 'web'], function () {
+    Route::get( '/i/{afCode}', 'RegistrationController@invitation' );
+    Route::get( '/i/{afCode}/{usCode}', 'RegistrationController@invitation' );
+    Route::post( '/i/invitationStore', 'RegistrationController@invitationStore' )->name('affiliate.invitationStore');
+});
+
 Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=>'affiliate', 'middleware' => 'web'], function () {
-    Route::get( '/', 'AffiliateController@index' )->name('affiliate.form');
-    Route::post( '/store', 'AffiliateController@store' )->name('affiliate.store');
+    Route::get( '/', 'RegistrationController@index' )->name('affiliate.form');
+    Route::post( '/store', 'RegistrationController@store' )->name('affiliate.store');
 
     Route::group(['middleware' => ['auth','verified']], function () {
+        Route::post( '/user-registration', 'RegistrationController@registration' )->name('affiliate.registration');
         Route::get( '/dashboard', 'AffiliateController@dashboard' );
         Route::get( '/banner', 'AffiliateController@banner' );
         Route::post( '/payment-store', 'AffiliateController@paymentStore' )->name('affiliate.payment.store');
         Route::post( '/banner-store', 'AffiliateController@bannerStore' )->name('affiliate.banner.store');
+
+        Route::post( '/send-invitation', 'AffiliateController@invitation' )->name('affiliate.invitation');
     });
 });
 

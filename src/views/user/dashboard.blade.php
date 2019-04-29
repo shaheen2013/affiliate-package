@@ -65,6 +65,34 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group col-md-12">
+                                <form action="{{ route('affiliate.invitation') }}" method="post" id="invitationForm" autocomplete="off">
+                                    @csrf
+
+                                    <div class="form-row seprator-group">
+                                        <div class="form-group col-md-12">
+                                            <div class="seprator">SEND INVITATION</div>
+                                            <p class="invitation-success text-success"></p>
+                                            <p class="text-success"><strong>Invitation Link: {{env('APP_URL').'/i/'.$affiliate->affiliate_code.'/'.$affiliate->user_code}}</strong></p>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Email ID</label>
+                                            <input type="text" class="form-control" id="emails" name="emails" placeholder="Use coma separator for multiple email">
+                                            <div class="ee error-emails" style="display:none;color: red;">Email ID is required.</div>
+                                        </div>
+                                        <div class="col-md-12">&nbsp;</div>
+
+                                        <div class="form-group col-md-12">
+                                            <label>Custom Message:</label>
+                                            <textarea class="form-control" id="custom_message" name="custom_message" placeholder="Custom Message"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12 text-center">
+                                            <button type="submit" class="btn btn-danger" id="invitationSubmit">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -300,6 +328,55 @@
                         $(".banner-success").text(data.message);
                         $('#bannerForm').trigger("reset");
                         $('#buttonGroup'+banner_id).html('<a class="btn btn-success">Activated</a>');
+                    }
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#invitationForm").on("submit", function (e) {
+            e.preventDefault();
+
+            var emails = $("#emails").val();
+            var custom_message = $("#custom_message").val();
+            var errorStatus = false;
+
+            if (emails == "") {
+                $(".error-emails").show();
+            }
+
+            $('.ee').hide();
+            $('#invitationSubmit').prop('disabled',true);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('affiliate.invitation') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    emails: emails,
+                    custom_message: custom_message,
+                },
+                complete : function (data) {
+                    $('#invitationSubmit').prop('disabled',false);
+                },
+                success: function (data) {
+                    if (!data.success) {
+                        var err = data.errors;
+                        for (var key in err) {
+                            if (err.hasOwnProperty(key)) {
+                                if (err[key] != "") {
+                                    $(".error-" + key).text(err[key]).show();
+                                };
+                            }
+                        }
+                    }
+
+                    if (data.success) {
+                        $(".invitation-success").text(data.message);
+                        $('#invitationForm').trigger("reset");
                     }
                 }
             });
