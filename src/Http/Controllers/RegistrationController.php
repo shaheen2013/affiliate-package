@@ -166,6 +166,7 @@ class RegistrationController extends Controller
             $affiliate = Affiliate::where('affiliate_code', $code)->first();
             $aff = AffiliateInvitation::create([
                 'register_user_id' => $user->id,
+                'affiliate_id' => $affiliate->id,
                 'affiliate_user_id' => $affiliate->user_id,
                 'affiliate_commission' => $affiliate->commission,
             ]);
