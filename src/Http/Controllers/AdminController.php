@@ -21,8 +21,20 @@ class AdminController extends Controller
         $this->middleware('auth:admin');
     }
 
-    //Affiliate Request Section...
     public function index()
+    {
+        $records = Affiliate::with('user')->where('status', 'Approved')->get();
+        return view('affiliate::admin.affiliate-user', compact('records'))->with('title', 'Affiliate Users');
+    }
+
+    public function show($id)
+    {
+        $data = Affiliate::with('user', 'payment', 'activeBanner')->where('status', 'Approved')->where('id', $id)->first();
+        return view('affiliate::admin.affiliate-user-show', compact('data'))->with('title', 'Affiliate Users');
+    }
+
+    //Affiliate Request Section...
+    public function allAffiliate()
     {
         $records = Affiliate::with('user')->get();
         return view('affiliate::admin.request-list', compact('records'))->with('title', 'All');

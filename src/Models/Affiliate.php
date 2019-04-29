@@ -2,6 +2,7 @@
 
 namespace Mediusware\Affiliate\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Affiliate extends Model
@@ -12,4 +13,16 @@ class Affiliate extends Model
     {
         return $this->hasOne( \App\User::class, 'id', 'user_id' );
     }
+
+    public function payment()
+    {
+        return $this->hasOne(AffiliatePayment::class, 'user_id', 'user_id');
+    }
+
+    public function activeBanner()
+    {
+        return $this->hasOne(AffiliateBanner::class, 'id', 'banner_id');
+    }
+
+
 }
