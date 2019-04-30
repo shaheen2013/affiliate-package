@@ -22,34 +22,37 @@
                     <div class="tab-pane active">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                @if (!empty($affiliate))
-                                    <h3>Your Account is not activated yet!</h3>
+                                @if (!empty($affiliate) && $affiliate->status=='Pending')
+                                    <h3>Your Affliate Account is not activated yet!</h3>
+                                @elseif(!empty($affiliate) && $affiliate->status=='Rejected')
+                                    <h3>Your Affliate request is rejected!</h3>
                                 @else
-                                <form action="{{ route('affiliate.registration') }}" method="post" id="alliliateRegiForm" autocomplete="off">
-                                    @csrf
+                                    <h3>Register your Affliate Account</h3>
+                                    <form action="{{ route('affiliate.registration') }}" method="post" id="alliliateRegiForm" autocomplete="off">
+                                        @csrf
 
-                                    <div class="form-row seprator-group">
-                                        <div class="form-group col-md-12">
-                                            <div class="seprator">PAYMENT INFORMATION</div>
-                                            <p class="text-success success"></p>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>How will you Produce Us?*</label>
-                                            <textarea class="form-control" id="promotion_message" name="promotion_message" placeholder="How will you Produce Us?*"></textarea>
-                                            <div class="ee error-promotion_message" style="display:none;color: red;">Produce Message is required.</div>
-                                        </div>
-                                        <div class="col-md-12">&nbsp;</div>
+                                        <div class="form-row seprator-group">
+                                            <div class="form-group col-md-12">
+                                                <div class="seprator">PAYMENT INFORMATION</div>
+                                                <p class="text-success success"></p>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>How will you Produce Us?*</label>
+                                                <textarea class="form-control" id="promotion_message" name="promotion_message" placeholder="How will you Produce Us?*"></textarea>
+                                                <div class="ee error-promotion_message" style="display:none;color: red;">Produce Message is required.</div>
+                                            </div>
+                                            <div class="col-md-12">&nbsp;</div>
 
-                                        <div class="form-group col-md-12">
-                                            <label>Website URL*</label>
-                                            <input type="text" class="form-control" id="website_url" name="website_url" placeholder="Website URL">
-                                            <div class="ee error-website_url" style="display:none;color: red;">Website URL is required.</div>
+                                            <div class="form-group col-md-12">
+                                                <label>Website URL*</label>
+                                                <input type="text" class="form-control" id="website_url" name="website_url" placeholder="Website URL">
+                                                <div class="ee error-website_url" style="display:none;color: red;">Website URL is required.</div>
+                                            </div>
+                                            <div class="form-group col-md-12 text-center">
+                                                <button type="submit" class="btn btn-danger" id="alliliateRegiSubmit">Apply</button>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-12 text-center">
-                                            <button type="submit" class="btn btn-danger" id="alliliateRegiSubmit">Apply</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
                                 @endif
                             </div>
                         </div>

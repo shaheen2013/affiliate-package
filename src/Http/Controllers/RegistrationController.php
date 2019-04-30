@@ -41,6 +41,7 @@ class RegistrationController extends Controller
         $formData = [
             'name' => $input['firstname'],
             'last_name' => $input['lastname'],
+            'country_id' => $input['country_id'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ];

@@ -36,7 +36,16 @@
                     </div>
 
                     <div class="popupformo">
-                        <div class="popupformf">
+                        <div class="popupform">
+                            <select id="af_country_id" name="af_country_id" style="outline:none;" onchange="showCode(this)" class="text custom-select">
+                                <option disabled selected>Country*</option>
+                                @foreach($countries as $country)
+                                <option value="{{$country->id}}"  title="+{{$country->phonecode}}">{{$country->name}}</option>
+                                @endforeach
+                            </select>
+                            <div class="ee error-af_country_id" style="display:none;color: red;">Country name is required.</div>
+                        </div>
+                        <div class="popupform">
                             <input type="email" id="af_email" name="email" placeholder="Email*" class="text rqd">
                             <div class="ee error-af_email" style="display:none;color: red;">Email is required.</div>
                         </div>
@@ -177,6 +186,7 @@
             e.preventDefault();
             var af_firstname = $("#af_firstname").val();
             var af_lastName = $("#af_lastname").val();
+            var af_country_id = $("#af_country_id").val();
             var af_email = $("#af_email").val();
             var af_password = $("#af_password").val();
             var c_af_password = $("#c_af_password").val();
@@ -194,6 +204,10 @@
             }
             if (af_lastName == "") {
                 $(".error-af_lastname").show();
+                errorStatus = true;
+            }
+            if (af_country_id == "") {
+                $(".error-af_country_id").show();
                 errorStatus = true;
             }
             if(af_email == ""){
@@ -230,6 +244,7 @@
                 data: {
                     firstname: af_firstname,
                     lastname: af_lastName,
+                    country_id: af_country_id,
                     email: af_email,
                     password: af_password,
                     promotion_message: af_promotion_message,
