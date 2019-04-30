@@ -2,11 +2,6 @@
 
 //Affiliate invitation registration link...
 Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'middleware' => 'web'], function () {
-    //For Share...
-    Route::get( '/s/{afCode}', 'RegistrationController@share' );
-    Route::get( '/s/{afCode}/{usCode}', 'RegistrationController@share' );
-
-    //For Registration
     Route::get( '/i/{afCode}', 'RegistrationController@invitation' );
     Route::get( '/i/{afCode}/{usCode}', 'RegistrationController@invitation' );
     Route::post( '/i/invitationStore', 'RegistrationController@invitationStore' )->name('affiliate.invitationStore');

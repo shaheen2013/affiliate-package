@@ -65,3 +65,30 @@ Add this in your admin master template navigation section
     </ul>
 </li>
 ```
+
+Add this in your views/layout/app.blade.php head section for Affiliate banner share
+```
+@if(isset($affiliate))
+    @if(!empty($affiliate->activeBanner))
+        <title>{{$affiliate->activeBanner->banner_heading}}</title>
+        <meta name="description" content="{{$affiliate->activeBanner->banner_message}}">
+        <meta name="keywords" content="{{$affiliate->activeBanner->banner_heading}}">
+        <meta name="author" content="{{$affiliate->user->name}}">
+
+        <meta property="og:title" content="{{$affiliate->activeBanner->banner_heading}}" />
+        <meta property="og:url" content="{{url('i/'.$affiliate->affiliate_code.'/'.$affiliate->user_code)}}" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image" content="{{url('images/affiliateBanners/'.$affiliate->activeBanner->banner_image)}}" />
+        <meta property="og:image:secure_url" content="{{url('images/affiliateBanners/'.$affiliate->activeBanner->banner_image)}}" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="300" />
+        <meta property="og:image:alt" content="{{$affiliate->activeBanner->banner_heading}}" />
+    @endif
+@else
+    <title>AIMSTAR.GG</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="game">
+@endif
+```
