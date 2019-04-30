@@ -33,7 +33,7 @@
 
                                         <div class="form-row seprator-group">
                                             <div class="form-group col-md-12">
-                                                <div class="seprator">PAYMENT INFORMATION</div>
+                                                <div class="seprator">AFFLIATE INFORMATION</div>
                                                 <p class="text-success success"></p>
                                             </div>
                                             <div class="form-group col-md-12">

@@ -69,7 +69,7 @@
                                         <div class="form-group col-md-12">
                                             <div class="seprator">SEND INVITATION</div>
                                             <p class="invitation-success text-success"></p>
-                                            <p class="text-success"><strong>Invitation Link: {{env('APP_URL').'/i/'.$affiliate->affiliate_code.'/'.$affiliate->user_code}}</strong></p>
+                                            <p class="text-success"><strong>Invitation Link: {{url('/i/'.$affiliate->affiliate_code.'/'.$affiliate->user_code)}}</strong></p>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label>Email ID</label>
@@ -144,6 +144,7 @@
                                         <img src="{!! url('images/affiliateBanners/'.data('banner_image', $ban))!!}" style="width:100%;" />
                                         <div class="text-center premium-position" id="buttonGroup{{$ban->id}}">
                                             @if(!empty($ban->activeBannerUser))
+                                                <p class="text-success"><strong>Copy Link & Share: {{url('/s/'.$affiliate->affiliate_code.'/'.$affiliate->user_code)}}</strong></p>
                                                 <a class="btn btn-success">Activated</a>
                                             @else
                                                 <a class="btn btn-free" onclick="activeBanner({{$ban->id}})">Active</a>

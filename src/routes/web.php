@@ -2,6 +2,11 @@
 
 //Affiliate invitation registration link...
 Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'middleware' => 'web'], function () {
+    //For Share...
+    Route::get( '/s/{afCode}', 'RegistrationController@share' );
+    Route::get( '/s/{afCode}/{usCode}', 'RegistrationController@share' );
+
+    //For Registration
     Route::get( '/i/{afCode}', 'RegistrationController@invitation' );
     Route::get( '/i/{afCode}/{usCode}', 'RegistrationController@invitation' );
     Route::post( '/i/invitationStore', 'RegistrationController@invitationStore' )->name('affiliate.invitationStore');
@@ -19,6 +24,8 @@ Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=
         Route::post( '/send-invitation', 'AffiliateController@invitation' )->name('affiliate.invitation');
         Route::post( '/payment-store', 'AffiliateController@paymentStore' )->name('affiliate.payment.store');
         Route::post( '/banner-store', 'AffiliateController@bannerStore' )->name('affiliate.banner.store');
+
+        Route::get( '/get-commission/{amount}', 'AffiliateController@getCommission' );
     });
 });
 

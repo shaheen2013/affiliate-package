@@ -116,6 +116,15 @@ class RegistrationController extends Controller
     }
 
 
+    public function share($code)
+    {
+        $affiliate = Affiliate::with(['user', 'activeBanner'])->where('affiliate_code', $code)->first();
+        if (empty($affiliate) || empty($affiliate->activeBanner)) {
+            echo 'Invalid URL';exit;
+        }
+        return view('affiliate::share-page', compact('affiliate'));
+    }
+
     public function invitation($code)
     {
         $affiliate = Affiliate::where('affiliate_code', $code)->first();

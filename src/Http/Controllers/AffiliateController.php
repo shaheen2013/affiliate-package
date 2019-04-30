@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Mediusware\Affiliate\Models\Affiliate;
 use Mediusware\Affiliate\Models\AffiliateBanner;
+use Mediusware\Affiliate\Models\AffiliateIncome;
 use Mediusware\Affiliate\Models\AffiliatePayment;
 use Mediusware\Affiliate\Models\AffiliateInvitation;
 
@@ -112,5 +113,21 @@ class AffiliateController extends Controller
         } else {
             return response()->json(['success' =>false , 'message' =>'Banner adding failed.']);
         }
+    }
+
+    public function getCommission($amount)
+    {
+        $invitations = AffiliateInvitation::where('register_user_id', Auth::user()->id)->first();
+        if (!empty($invitations)) {
+            $aff = AffiliateIncome::create([
+                'paid_user_id' => Auth::user()->id,
+                'paid_amount' => $amount,
+                'income_user_id' => $invitations->affiliate_user_id,
+                'income_commission' => $invitations->affiliate_commission,
+                'income_amount' => (($amount*$invitations->affiliate_commission)/100),
+            ]);
+            return true;
+        }
+        return false;
     }
 }
