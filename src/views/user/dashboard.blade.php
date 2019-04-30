@@ -147,6 +147,7 @@
                                                 <p class="text-success"><strong>Copy Link & Share: {{url('/i/'.$affiliate->affiliate_code.'/'.$affiliate->user_code)}}</strong></p>
                                                 <a class="btn btn-success">Activated</a>
                                             @else
+                                                <p class="text-success">&nbsp;</p>
                                                 <a class="btn btn-free" onclick="activeBanner({{$ban->id}})">Active</a>
                                             @endif
                                         </div>
