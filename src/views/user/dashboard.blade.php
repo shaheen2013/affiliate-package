@@ -34,9 +34,9 @@
                             <div class="form-group col-md-3 text-center">
                                 <div class="subscribe-card">
                                     <h3><span class="color-orange">Total Income</span></h3>
-                                    <p class="premium-sub-title">$100</p>
+                                    <p class="premium-sub-title">${{$incomes}}</p>
                                     <div class="text-center premium-position">
-                                        <a class="btn btn-free">Show Details</a>
+                                        <a class="btn btn-free" onclick="showDetails('income')">Show Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="form-group col-md-3 text-center">
                                 <div class="subscribe-card">
                                     <h3><span class="color-orange">Paidout Amount</span></h3>
-                                    <p class="premium-sub-title">$60</p>
+                                    <p class="premium-sub-title">$0</p>
                                     <div class="text-center premium-position">
                                         <a class="btn btn-free">Show Details</a>
                                     </div>
@@ -54,7 +54,7 @@
                             <div class="form-group col-md-3 text-center">
                                 <div class="subscribe-card">
                                     <h3><span class="color-orange">Balance Amount</span></h3>
-                                    <p class="premium-sub-title">$40</p>
+                                    <p class="premium-sub-title">${{$incomes}}</p>
                                     <div class="text-center premium-position">
                                         <a class="btn btn-free">Show Details</a>
                                     </div>
@@ -203,20 +203,13 @@
     <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">User Details</h4>
+                    <h4 class="modal-title" id="headingDetails">Signup Details</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Commission</th>
-                        </thead>
-                        <tbody id="responseDetails">
+                    <table class="table table-bordered" id="responseDetails">
 
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -408,15 +401,46 @@
                 key: key,
             },
             success: function (data) {
-                var html = '';
-                var records = data.records;
-                for(var x = 0; x < records.length; x++) {
-                    html += '<tr>'+
-                        '<td><img src="./images/users/profile/'+records[x].register_user.profile_img+'"></td>'+
-                        '<td>'+records[x].register_user.name+' '+records[x].register_user.last_name+'</td>'+
-                        '<td>'+records[x].affiliate_commission+'%</td>'+
-                    '</tr>';
+                if(key=='signup') {
+                    $('#headingDetails').html('Signup Details');
+                    var html = '<thead>'+
+                        '<th>Image</th>'+
+                        '<th>Name</th>'+
+                        '<th>Commission</th>'+
+                    '</thead>'+
+                    '<tbody>';
+                    var records = data.records;
+                    for(var x = 0; x < records.length; x++) {
+                        html += '<tr>'+
+                            '<td><img src="./images/users/profile/'+records[x].register_user.profile_img+'"></td>'+
+                            '<td>'+records[x].register_user.name+' '+records[x].register_user.last_name+'</td>'+
+                            '<td>'+records[x].affiliate_commission+'%</td>'+
+                        '</tr>';
+                    }
+                    html += '</tbody>';
+                } else if(key=='income') {
+                    $('#headingDetails').html('Income Details');
+                    var html = '<thead>'+
+                        '<th>Image</th>'+
+                        '<th>Name</th>'+
+                        '<th>Paid Amount</th>'+
+                        '<th>Commission</th>'+
+                        '<th>Commission Amount</th>'+
+                    '</thead>'+
+                    '<tbody>';
+                    var records = data.records;
+                    for(var x = 0; x < records.length; x++) {
+                        html += '<tr>'+
+                            '<td><img src="./images/users/profile/'+records[x].paid_user.profile_img+'"></td>'+
+                            '<td>'+records[x].paid_user.name+' '+records[x].paid_user.last_name+'</td>'+
+                            '<td>$'+records[x].paid_amount+'</td>'+
+                            '<td>'+records[x].income_commission+'%</td>'+
+                            '<td>$'+records[x].income_amount+'</td>'+
+                        '</tr>';
+                    }
+                    html += '</tbody>';
                 }
+
                 $('#responseDetails').html(html);
                 $('#detailsModal').modal();
 

@@ -4,8 +4,8 @@ namespace Mediusware\Affiliate\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -28,7 +28,8 @@ class AffiliateController extends Controller
         $payments = AffiliatePayment::where('user_id', Auth::user()->id)->first();
         $banners = AffiliateBanner::with('activeBannerUser')->where('status', 'Active')->get();
         $invitations = AffiliateInvitation::where('affiliate_user_id', Auth::user()->id)->get();
-        return view('affiliate::user.dashboard', compact('affiliate', 'payments', 'banners', 'invitations'));
+        $incomes = AffiliateIncome::where('income_user_id', Auth::user()->id)->sum('income_amount');
+        return view('affiliate::user.dashboard', compact('affiliate', 'payments', 'banners', 'invitations', 'incomes'));
     }
 
     public function showDetails(Request $request)
@@ -36,6 +37,9 @@ class AffiliateController extends Controller
         if ($request->key=='signup') {
             $invitations = AffiliateInvitation::with('registerUser')->where('affiliate_user_id', Auth::user()->id)->get();
             return response()->json(['success' =>true , 'records' => $invitations]);
+        } elseif ($request->key=='income') {
+            $incomes = AffiliateIncome::with('paidUser')->where('income_user_id', Auth::user()->id)->get();
+            return response()->json(['success' =>true , 'records' => $incomes]);
         }
         return response()->json(['success' =>false , 'message' =>'No Request found']);
 

@@ -20,6 +20,8 @@ Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=
         Route::post( '/payment-store', 'AffiliateController@paymentStore' )->name('affiliate.payment.store');
         Route::post( '/banner-store', 'AffiliateController@bannerStore' )->name('affiliate.banner.store');
 
+
+        //For commission Check...
         Route::get( '/get-commission/{amount}', 'AffiliateController@getCommission' );
     });
 });

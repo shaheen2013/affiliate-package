@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use Mediusware\Affiliate\Models\Affiliate;
 use Mediusware\Affiliate\Models\AffiliateBanner;
+use Mediusware\Affiliate\Models\AffiliateIncome;
 use Mediusware\Affiliate\Models\AffiliateInvitation;
 
 class AdminController extends Controller
@@ -101,9 +102,13 @@ class AdminController extends Controller
     {
         $showTab = $key;
         $invitations = AffiliateInvitation::with(['registerUser', 'affiliateUser'])->get();
-        // if ($key=='sign-up') {
-        // }
-        return view('affiliate::admin.dashboard', compact('showTab', 'invitations'));
+        $income = AffiliateIncome::sum('income_amount');
+
+        $incomes = [];
+        if ($key=='income') {
+            $incomes = AffiliateIncome::with(['paidUser', 'incomeUser'])->get();
+        }
+        return view('affiliate::admin.dashboard', compact('showTab', 'invitations', 'income', 'incomes'));
     }
 
     //Banner Section...

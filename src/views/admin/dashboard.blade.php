@@ -22,13 +22,15 @@
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
+        <a href="{{ url('admin/affiliate-dashboard/income') }}">
         <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Total Income</span>
-                <span class="info-box-number">$90</span>
+                <span class="info-box-number">${{$income}}</span>
             </div>
         </div>
+        </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
@@ -88,6 +90,62 @@
                             </tr>
                             @endforeach
                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@elseif($showTab=='income')
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">All Income</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Income Datetime</th>
+                                <th colspan="3" class="text-center">Paid User</th>
+                                <th colspan="4" class="text-center">Income User</th>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Paid Amount</th>
+
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Commission</th>
+                                <th>Income Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php ($totalIncome = 0)
+                            @foreach($incomes as $inm)
+                            <tr>
+                                <td>{{$inm->created_at}}</td>
+                                <td><img src="./images/users/profile/{{$inm->paidUser->profile_img}}"></td>
+                                <td>{{$inm->paidUser->name}} {{$inm->paidUser->last_name}}</td>
+                                <td align="right">${{$inm->paid_amount}}</td>
+
+                                <td><img src="./images/users/profile/{{$inm->incomeUser->profile_img}}"></td>
+                                <td>{{$inm->incomeUser->name}} {{$inm->incomeUser->last_name}}</td>
+                                <td align="right">{{$inm->income_commission}}%</td>
+                                <td align="right">${{$inm->income_amount}}</td>
+                            </tr>
+                            @php ($totalIncome += $inm->income_amount)
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="7" class="text-right">Total:</th>
+                                <th class="text-right">${{number_format($totalIncome, 2)}}</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
