@@ -49,6 +49,8 @@
                                     @if($val->user_code!='')
                                         <br><strong>User Code:</strong> {{ $val->user_code }}
                                     @endif
+
+                                    <br>Link: <a target="_blank" href="{{ url('i/'.$val->affiliate_code.'/'.$val->user_code) }}">{{ url('i/'.$val->affiliate_code.'/'.$val->user_code) }}</a>
                                 @else
                                     {{ $val->status }}
                                 @endif

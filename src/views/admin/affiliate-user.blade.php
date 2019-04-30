@@ -24,6 +24,7 @@
                             <th>Email</th>
                             <th>Promotion Message</th>
                             <th>Website URL</th>
+                            <th>Affiliate URL</th>
                             <th>Status</th>
                             <th class="text-right">Action</th>
                         </tr>
@@ -36,6 +37,7 @@
                             <td>{{ $val->user->email }}</td>
                             <td>{{ $val->promotion_message }}</td>
                             <td>{{ $val->website_url }}</td>
+                            <td><a target="_blank" href="{{ url('i/'.$val->affiliate_code.'/'.$val->user_code) }}">{{ url('i/'.$val->affiliate_code.'/'.$val->user_code) }}</a></td>
                             <td>
                                 @if($val->status=='Approved')
                                     {{ $val->status }}<br>

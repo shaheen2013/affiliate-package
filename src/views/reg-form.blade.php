@@ -46,7 +46,7 @@
                             <div class="ee error-af_password" style="display:none;color: red;">Password is required.</div>
                         </div>
                         <div class="popupform">
-                            <input type="af_password" id="c_af_password" name="c_af_password" placeholder="Confirm password*" class="text rqd"
+                            <input type="password" id="c_af_password" name="c_af_password" placeholder="Confirm password*" class="text rqd"
                                 autocomplete="off">
                             <div class="ee error-c_af_password" style="display:none;color: red;">Confirm af_password is required.</div>
                             <div class="ee error-c_af_password_not_match" style="display:none;color: red;">Passwords do not match</div>
@@ -223,6 +223,8 @@
                         }
                     }
                 });
+            } else {
+                $('#alliliateSubmit').prop('disabled',false);
             }
         });
     });

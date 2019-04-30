@@ -16,8 +16,8 @@ class CreateAffiliateBannersTable extends Migration
         Schema::create('affiliate_banners', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->text('banner_message');
-            $table->string('banner_image');
+            $table->text('banner_message')->nullable();
+            $table->string('banner_image')->nullable();
             $table->string('banner_heading')->nullable();
             $table->enum('status', ['Active','Inactive'])->default('Active');
             $table->timestamps();

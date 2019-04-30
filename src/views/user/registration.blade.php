@@ -23,11 +23,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 @if (!empty($affiliate) && $affiliate->status=='Pending')
-                                    <h3>Your Affliate Account is not activated yet!</h3>
+                                    <h3 class="text-center">Your Affliate Account is not activated yet!</h3>
                                 @elseif(!empty($affiliate) && $affiliate->status=='Rejected')
-                                    <h3>Your Affliate request is rejected!</h3>
+                                    <h3 class="text-center">Your Affliate request is rejected!</h3>
                                 @else
-                                    <h3>Register your Affliate Account</h3>
+                                    <h3 class="text-center">Register your Affliate Account</h3>
                                     <form action="{{ route('affiliate.registration') }}" method="post" id="alliliateRegiForm" autocomplete="off">
                                         @csrf
 

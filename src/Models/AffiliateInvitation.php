@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AffiliateInvitation extends Model
 {
-    protected $fillable = ['register_user_id', 'affiliate_user_id', 'affiliate_commission'];
+    protected $fillable = ['register_user_id', 'affiliate_id', 'affiliate_user_id', 'affiliate_commission'];
 
     public function registerUser()
     {

@@ -46,7 +46,7 @@ or
 
 Add this in your user panel where you want to show user Affiliate link
 ```
-<a class="dropdown-item" href="/my-affiliate">Affiliate</a>
+<a class="dropdown-item" href="/affiliate/dashboard">Affiliate</a>
 ```
 
 Add this in your admin master template navigation section
