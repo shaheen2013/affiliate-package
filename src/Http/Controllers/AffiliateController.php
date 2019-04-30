@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Mediusware\Affiliate\Models\Affiliate;
 use Mediusware\Affiliate\Models\AffiliateBanner;
 use Mediusware\Affiliate\Models\AffiliatePayment;
+use Mediusware\Affiliate\Models\AffiliateInvitation;
 
 class AffiliateController extends Controller
 {
@@ -23,9 +24,41 @@ class AffiliateController extends Controller
         if (empty($affiliate) || $affiliate->status!='Approved') {
             return view('affiliate::user.registration', compact('affiliate'));
         }
-        $banners = AffiliateBanner::with('activeBannerUser')->where('status', 'Active')->get();
         $payments = AffiliatePayment::where('user_id', Auth::user()->id)->first();
-        return view('affiliate::user.dashboard', compact('affiliate', 'payments', 'banners'));
+        $banners = AffiliateBanner::with('activeBannerUser')->where('status', 'Active')->get();
+        $invitations = AffiliateInvitation::where('affiliate_user_id', Auth::user()->id)->get();
+        return view('affiliate::user.dashboard', compact('affiliate', 'payments', 'banners', 'invitations'));
+    }
+
+    public function showDetails(Request $request)
+    {
+        if ($request->key=='signup') {
+            $invitations = AffiliateInvitation::with('registerUser')->where('affiliate_user_id', Auth::user()->id)->get();
+            return response()->json(['success' =>true , 'records' => $invitations]);
+        }
+        return response()->json(['success' =>false , 'message' =>'No Request found']);
+
+    }
+
+    public function invitation(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'emails' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' =>false , 'errors'=>$validator->messages()]);
+        }
+
+
+        $emails = explode(',', $request->emails);
+        $affiliate = Affiliate::with('user')->where('user_id', Auth::user()->id)->first();
+        Mail::send('affiliate::emails.invitation', ['affiliate' => $affiliate, 'request' => $request], function ($message) use($emails) {
+            $message->subject(env('SITE_NAME').' Registration Invitation');
+            $message->from(config('affiliate.admin_mail_from'), config('affiliate.admin_mail_name'));
+            $message->to($emails);
+        });
+        return response()->json(['success' =>true , 'message' =>'Invitation link sent successfully.', 'to' => $emails]);
     }
 
     public function paymentStore(Request $request)
@@ -79,26 +112,5 @@ class AffiliateController extends Controller
         } else {
             return response()->json(['success' =>false , 'message' =>'Banner adding failed.']);
         }
-    }
-
-    public function invitation(Request $request)
-    {
-        $validator = \Validator::make($request->all(), [
-            'emails' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['success' =>false , 'errors'=>$validator->messages()]);
-        }
-
-
-        $emails = explode(',', $request->emails);
-        $affiliate = Affiliate::with('user')->where('user_id', Auth::user()->id)->first();
-        Mail::send('affiliate::emails.invitation', ['affiliate' => $affiliate, 'request' => $request], function ($message) use($emails) {
-            $message->subject(env('SITE_NAME').' Registration Invitation');
-            $message->from(config('affiliate.admin_mail_from'), config('affiliate.admin_mail_name'));
-            $message->to($emails);
-        });
-        return response()->json(['success' =>true , 'message' =>'Invitation link sent successfully.', 'to' => $emails]);
     }
 }

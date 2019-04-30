@@ -13,12 +13,12 @@ Route::group( ['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix'=
 
     Route::group(['middleware' => ['auth','verified']], function () {
         Route::post( '/user-registration', 'RegistrationController@registration' )->name('affiliate.registration');
+
         Route::get( '/dashboard', 'AffiliateController@dashboard' );
-        Route::get( '/banner', 'AffiliateController@banner' );
+        Route::get( '/show-details', 'AffiliateController@showDetails' )->name('affiliate.show.details');
+        Route::post( '/send-invitation', 'AffiliateController@invitation' )->name('affiliate.invitation');
         Route::post( '/payment-store', 'AffiliateController@paymentStore' )->name('affiliate.payment.store');
         Route::post( '/banner-store', 'AffiliateController@bannerStore' )->name('affiliate.banner.store');
-
-        Route::post( '/send-invitation', 'AffiliateController@invitation' )->name('affiliate.invitation');
     });
 });
 
@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Mediusware\Affiliate\Http\Controllers', 'prefix' =
     Route::post( '/affiliate-request/{id}/{status}', 'AdminController@statusAffiliate' );
 
     Route::get( '/affiliate-dashboard', 'AdminController@dashboard' );
+    Route::get( '/affiliate-dashboard/{key}', 'AdminController@dashboard' );
 
     Route::get( '/affiliate-banner', 'AdminController@banner' );
     Route::get( '/affiliate-banner/{id}/edit', 'AdminController@banner' );

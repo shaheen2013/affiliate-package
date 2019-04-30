@@ -24,14 +24,9 @@
                             <div class="form-group col-md-3 text-center">
                                 <div class="subscribe-card">
                                     <h3><span class="color-orange">Total Signups</span></h3>
-                                    <p class="premium-sub-title">10</p>
-                                    {{--  <ul class="check-list sky">
-                                        <li>
-                                            <i class="far fa-check-circle"></i> Access all free lobbies for Aimstar
-                                        </li>
-                                    </ul>  --}}
+                                    <p class="premium-sub-title">{{count($invitations)}}</p>
                                     <div class="text-center premium-position">
-                                        <a class="btn btn-free">Show Details</a>
+                                        <a class="btn btn-free" onclick="showDetails('signup')">Show Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -200,8 +195,84 @@
     </div>
 </div>
 
+
+
+<div class="modal" id="detailsModal">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">User Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Commission</th>
+                        </thead>
+                        <tbody id="responseDetails">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
+        //Invitation Form Submit...
+        $("#invitationForm").on("submit", function (e) {
+            e.preventDefault();
+
+            var emails = $("#emails").val();
+            var custom_message = $("#custom_message").val();
+            var errorStatus = false;
+
+            if (emails == "") {
+                $(".error-emails").show();
+            }
+
+            $('.ee').hide();
+            $('#invitationSubmit').prop('disabled',true);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('affiliate.invitation') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    emails: emails,
+                    custom_message: custom_message,
+                },
+                complete : function (data) {
+                    $('#invitationSubmit').prop('disabled',false);
+                },
+                success: function (data) {
+                    if (!data.success) {
+                        var err = data.errors;
+                        for (var key in err) {
+                            if (err.hasOwnProperty(key)) {
+                                if (err[key] != "") {
+                                    $(".error-" + key).text(err[key]).show();
+                                };
+                            }
+                        }
+                    }
+
+                    if (data.success) {
+                        $(".invitation-success").text(data.message);
+                        $('#invitationForm').trigger("reset");
+                    }
+                }
+            });
+        });
+
+        //Payment Form Submit...
         $("#alliliatePaymentForm").on("submit", function (e) {
             e.preventDefault();
 
@@ -274,15 +345,8 @@
                 }
             });
         });
-    });
 
-    function activeBanner(id) {
-        $('#banner_id').val(id);
-        $('#aff_banner_token').val($('meta[name="csrf-token"]').attr('content'));
-        $('#bannerModal').modal();
-    }
-
-    $(document).ready(function () {
+        //Banner Form Submit...
         $("#bannerForm").on("submit", function (e) {
             e.preventDefault();
 
@@ -334,53 +398,36 @@
         });
     });
 
-    $(document).ready(function () {
-        $("#invitationForm").on("submit", function (e) {
-            e.preventDefault();
-
-            var emails = $("#emails").val();
-            var custom_message = $("#custom_message").val();
-            var errorStatus = false;
-
-            if (emails == "") {
-                $(".error-emails").show();
-            }
-
-            $('.ee').hide();
-            $('#invitationSubmit').prop('disabled',true);
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('affiliate.invitation') }}",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    emails: emails,
-                    custom_message: custom_message,
-                },
-                complete : function (data) {
-                    $('#invitationSubmit').prop('disabled',false);
-                },
-                success: function (data) {
-                    if (!data.success) {
-                        var err = data.errors;
-                        for (var key in err) {
-                            if (err.hasOwnProperty(key)) {
-                                if (err[key] != "") {
-                                    $(".error-" + key).text(err[key]).show();
-                                };
-                            }
-                        }
-                    }
-
-                    if (data.success) {
-                        $(".invitation-success").text(data.message);
-                        $('#invitationForm').trigger("reset");
-                    }
+    function showDetails(key) {
+        $.ajax({
+            type: "GET",
+            url: "{{ route('affiliate.show.details') }}",
+            data: {
+                key: key,
+            },
+            success: function (data) {
+                var html = '';
+                var records = data.records;
+                for(var x = 0; x < records.length; x++) {
+                    html += '<tr>'+
+                        '<td><img src="./images/users/profile/'+records[x].register_user.profile_img+'"></td>'+
+                        '<td>'+records[x].register_user.name+' '+records[x].register_user.last_name+'</td>'+
+                        '<td>'+records[x].affiliate_commission+'%</td>'+
+                    '</tr>';
                 }
-            });
+                $('#responseDetails').html(html);
+                $('#detailsModal').modal();
+
+                //responseDetails
+                //profile_img
+            }
         });
-    });
+    }
+
+    function activeBanner(id) {
+        $('#banner_id').val(id);
+        $('#aff_banner_token').val($('meta[name="csrf-token"]').attr('content'));
+        $('#bannerModal').modal();
+    }
 </script>
 @endsection

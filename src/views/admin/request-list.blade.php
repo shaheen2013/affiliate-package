@@ -28,7 +28,7 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Promotion Message</th>
+                            <th>Produce Text</th>
                             <th>Website URL</th>
                             <th>Status</th>
                             <th class="text-right">Action</th>
@@ -40,7 +40,7 @@
                             <td>{{ $val->user->name }} {{ $val->user->last_name }}</td>
                             <td>{{ $val->user->username }}</td>
                             <td>{{ $val->user->email }}</td>
-                            <td>{{ $val->promotion_message }}</td>
+                            <td title="How will you Produce Us?">{{ $val->promotion_message }}</td>
                             <td>{{ $val->website_url }}</td>
                             <td>
                                 @if($val->status=='Approved')
