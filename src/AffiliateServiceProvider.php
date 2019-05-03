@@ -24,7 +24,7 @@ class AffiliateServiceProvider extends ServiceProvider
         // Publish config, view and assets files
         $this->publishes([
             __DIR__.'/config/affiliate.php' => config_path('affiliate.php'),
-            __DIR__.'/views' => resource_path('views/affiliate'),
+            __DIR__.'/views' => resource_path('views/mediusware/affiliate'),
             //__DIR__.'/assets' => public_path('affiliate'),
         ]);
 
